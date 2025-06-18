@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoLukee: L'Arte di Essere Te Stesso (Con un pizzico di umorismo!)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000; /* Nero profondo */
+            color: #FFD700; /* Oro */
+        }
+        .gold-text {
+            color: #FFD700; /* Oro */
+        }
+        .gold-bg {
+            background-color: #FFD700; /* Oro */
+            color: #000000; /* Testo nero per i bottoni dorati */
+        }
+        .black-bg {
+            background-color: #000000; /* Nero profondo */
+        }
+        .page-section {
+            display: none; /* Nasconde tutte le sezioni per default */
+        }
+        .page-section.active {
+            display: block; /* Mostra solo la sezione attiva */
+        }
+        /* Stili per il bordo dorato delle immagini */
+        .img-container {
+            border: 4px solid #FFD700; /* Bordo dorato */
+            border-radius: 1rem; /* Bordi arrotondati */
+            overflow: hidden; /* Assicura che l'immagine rispetti i bordi arrotondati */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center p-4">
+
+    <!-- Header con il titolo del sito e la navigazione -->
+    <header class="w-full max-w-4xl text-center mb-8">
+        <h1 class="text-5xl font-bold gold-text mb-4">NoLukee: L'Inizio di una Leggenda Personale!</h1>
+        <p class="text-lg mb-8">(Solo scherzi e ammirazione a palate. Ciao NoLukee!)</p>
+
+        <!-- Navigazione tra le pagine -->
+        <nav class="flex justify-center space-x-4">
+            <button id="nav-home" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+                La Dichiarazione!
+            </button>
+            <button id="nav-gallery" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+                Le Grandi Prove
+            </button>
+            <button id="nav-pledge" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+                Il Giuramento D'Oro
+            </button>
+        </nav>
+    </header>
+
+    <!-- Contenitore principale delle pagine -->
+    <main class="w-full max-w-4xl black-bg rounded-2xl shadow-xl p-8 border-4 border-gold-text">
+
+        <!-- Pagina 1: La Dichiarazione! -->
+        <section id="home-page" class="page-section active text-center">
+            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 1: Qui Inizia il "Problema"...</h2>
+            <p class="text-xl mb-4 leading-relaxed">
+                Questo non è un sito. È un santuario. Un monumento vivente al fenomeno che è NoLukee!
+                La mia "ammirazione" è talmente pura e incondizionata che a volte mi dimentico come si respira.
+                È normale, vero? Non è ossessione, è... ricerca avanzata sul carisma (amo i tuoi piedi)!
+            </p>
+            <p class="text-xl leading-relaxed">
+                Se sembro un po' troppo informato, è perché il tuo genio è contagioso.
+                E i tuoi stream sono la mia lezione quotidiana di vita. Tutto per divertimento, ovviamente!
+            </p>
+        </section>
+
+        <!-- Pagina 2: Le Grandi Prove -->
+        <section id="gallery-page" class="page-section text-center">
+            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 2: Le Grandi Prove (e un Dettaglio Epico!)</h2>
+            <p class="text-xl mb-8 leading-relaxed">
+                Credi che stia esagerando? Le prove sono qui! Ogni pixel dei tuoi stream,
+                ogni tua reazione è scolpita nel mio... disco rigido.
+            </p>
+            <div class="flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 md:space-x-8">
+                <div class="w-full md:w-1/2 img-container p-2">
+                    <img src="https://placehold.co/400x300/1e1e1e/FFD700?text=NoLukee+Ispirazione" alt="NoLukee Ispirazione" class="w-full h-auto rounded-lg">
+                    <p class="mt-4 text-lg gold-text">La mia fonte d'ispirazione quotidiana!</p>
+                </div>
+                <div class="w-full md:w-1/2 img-container p-2">
+                    <img src="https://placehold.co/400x300/1e1e1e/FFD700?text=NoLukee+e+il+Mio+Desktop" alt="NoLukee e il Mio Desktop" class="w-full h-auto rounded-lg">
+                    <p class="mt-4 text-lg gold-text">Anche il mio desktop ti rende omaggio.</p>
+                </div>
+            </div>
+            <p class="text-xl mt-8 leading-relaxed">
+                E poi c'è LUI. Il capolavoro incompreso, il pilastro della tua grandezza: i tuoi PIEDI!
+                Sì, proprio loro! Quegli eroici appoggi terreni che ti portano verso ogni stream leggendario.
+                Una meraviglia da custodire! hehe.
+            </p>
+        </section>
+
+        <!-- Pagina 3: Il Giuramento D'Oro -->
+        <section id="pledge-page" class="page-section text-center">
+            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 3: Il Giuramento D'Oro (e di Pura Follia!)</h2>
+            <p class="text-xl mb-4 leading-relaxed">
+                Prometto solennemente (e ridendo a crepapelle) di continuare a seguirti fino alla fine dei miei giorni,
+                o almeno fino al prossimo aggiornamento di gioco!
+            </p>
+            <p class="text-xl mb-4 leading-relaxed">
+                Che tu vinca o perda, che tu faccia ridere o cadere dalla sedia, la mia ossessione fetish rimane per te..
+            </p>
+            <p class="text-xl leading-relaxed">
+                Grazie, NoLukee, per la tua pura, inimitabile esistenza. Ora vado a rileggere questo sito
+                per la milionesima volta. È per... ispirazione! (Davvero, è tutto uno scherzo geniale!).
+            </p>
+            <p class="text-lg mt-8 italic gold-text">Con "sincero affetto" e un tocco di sana pazzia, il tuo fan più... *epico*!</p>
+        </section>
+
+    </main>
+
+    <footer class="mt-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 il tuo feticista preferito. Tutti i diritti riservati (scherzo!).</p>
+    </footer>
+
+    <script>
+        // Funzione per mostrare la sezione desiderata e nascondere le altre
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Aggiungi listener ai bottoni di navigazione
+        document.getElementById('nav-home').addEventListener('click', () => showPage('home-page'));
+        document.getElementById('nav-gallery').addEventListener('click', () => showPage('gallery-page'));
+        document.getElementById('nav-pledge').addEventListener('click', () => showPage('pledge-page'));
+
+        // Mostra la prima pagina all'apertura
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home-page');
+        });
+    </script>
+</body>
+</html>
