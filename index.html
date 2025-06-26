@@ -8,62 +8,185 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Definizione delle variabili CSS per i colori */
+        :root {
+            --color-black-deep: #000000;
+            --color-gold: #FFD700;
+            --color-gray-footer: #9ca3af; /* Tailwind's gray-400 equivalent for footer */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000; /* Nero profondo */
-            color: #FFD700; /* Oro */
+            background-color: var(--color-black-deep); /* Nero profondo */
+            color: var(--color-gold); /* Oro */
+            overflow-x: hidden; /* Evita lo scroll orizzontale */
+            position: relative; /* Per posizionare elementi assoluti come lo sfondo stellato */
         }
+
+        /* Stile per il testo dorato */
         .gold-text {
-            color: #FFD700; /* Oro */
+            color: var(--color-gold);
         }
+
+        /* Stile per lo sfondo dorato */
         .gold-bg {
-            background-color: #FFD700; /* Oro */
-            color: #000000; /* Testo nero per i bottoni dorati */
+            background-color: var(--color-gold);
+            color: var(--color-black-deep); /* Testo nero per i bottoni dorati */
         }
+
+        /* Stile per lo sfondo nero */
         .black-bg {
-            background-color: #000000; /* Nero profondo */
+            background-color: var(--color-black-deep);
         }
+
+        /* Nasconde tutte le sezioni per default, prepara per le transizioni */
         .page-section {
-            display: none; /* Nasconde tutte le sezioni per default */
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            pointer-events: none; /* Disabilita interazioni quando non visibile */
         }
+
+        /* Mostra solo la sezione attiva con animazione */
         .page-section.active {
-            display: block; /* Mostra solo la sezione attiva */
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Abilita interazioni quando visibile */
         }
+
         /* Stili per il bordo dorato delle immagini */
         .img-container {
-            border: 4px solid #FFD700; /* Bordo dorato */
+            border: 4px solid var(--color-gold); /* Bordo dorato */
             border-radius: 1rem; /* Bordi arrotondati */
             overflow: hidden; /* Assicura che l'immagine rispetti i bordi arrotondati */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transizione per hover */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); /* Ombra dorata iniziale */
+        }
+
+        .img-container:hover {
+            transform: scale(1.03); /* Ingresisce leggermente al passaggio del mouse */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.3); /* Ombra più intensa */
+        }
+
+        /* Animazione per il titolo principale */
+        @keyframes header-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            animation: header-fade-in 1.5s ease-out forwards;
+        }
+
+        /* Animazione shimmer per il testo dorato */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, var(--color-gold) 0%, #FFFDE7 20%, var(--color-gold) 40%, var(--color-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: shimmer 5s infinite linear;
+        }
+
+        /* Animazione di pulsazione per il bordo del main container */
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 15px var(--color-gold);
+            }
+            50% {
+                box-shadow: 0 0 30px var(--color-gold), 0 0 60px rgba(255, 215, 0, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 15px var(--color-gold);
+            }
+        }
+
+        main {
+            animation: pulse-border 4s infinite ease-in-out;
+            border: 4px solid var(--color-gold); /* Bordo dorato */
+        }
+
+        /* Effetto sfondo stellato/particelle */
+        .starry-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Stili per il bottone di navigazione attivo */
+        .nav-button.active {
+            background-color: var(--color-gold);
+            color: var(--color-black-deep);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transform: scale(1.08); /* Più grande quando attivo */
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen items-center p-4">
 
+    <!-- Sfondo stellato/particelle -->
+    <div class="starry-background" id="starry-background"></div>
+
     <!-- Header con il titolo del sito e la navigazione -->
-    <header class="w-full max-w-4xl text-center mb-8">
-        <h1 class="text-5xl font-bold gold-text mb-4">NoLukee: L'Inizio di una Leggenda Personale!</h1>
-        <p class="text-lg mb-8">(Solo scherzi e ammirazione a palate. Ciao NoLukee!)</p>
+    <header class="w-full max-w-4xl text-center mb-8 z-10">
+        <h1 class="text-5xl font-bold gold-text mb-4 shimmer-text">NoLukee: L'Inizio di una Leggenda Personale!</h1>
+        <p class="text-lg mb-8 gold-text">(Solo scherzi e ammirazione a palate. Ciao NoLukee!)</p>
 
         <!-- Navigazione tra le pagine -->
         <nav class="flex justify-center space-x-4">
-            <button id="nav-home" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+            <button id="nav-home" class="nav-button gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
                 La Dichiarazione!
             </button>
-            <button id="nav-gallery" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+            <button id="nav-gallery" class="nav-button gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
                 Le Grandi Prove
             </button>
-            <button id="nav-pledge" class="gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
+            <button id="nav-pledge" class="nav-button gold-bg px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50">
                 Il Giuramento D'Oro
             </button>
         </nav>
     </header>
 
     <!-- Contenitore principale delle pagine -->
-    <main class="w-full max-w-4xl black-bg rounded-2xl shadow-xl p-8 border-4 border-gold-text">
+    <main class="w-full max-w-4xl black-bg rounded-2xl shadow-xl p-8 border-4 border-gold-text relative z-10">
 
         <!-- Pagina 1: La Dichiarazione! -->
-        <section id="home-page" class="page-section active text-center">
-            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 1: Qui Inizia il "Problema"...</h2>
+        <section id="home-page" class="page-section text-center">
+            <h2 class="text-4xl font-bold gold-text mb-6 shimmer-text">Capitolo 1: Qui Inizia il "Problema"...</h2>
             <p class="text-xl mb-4 leading-relaxed">
                 Questo non è un sito. È un santuario. Un monumento vivente al fenomeno che è NoLukee!
                 La mia "ammirazione" è talmente pura e incondizionata che a volte mi dimentico come si respira.
@@ -77,18 +200,22 @@
 
         <!-- Pagina 2: Le Grandi Prove -->
         <section id="gallery-page" class="page-section text-center">
-            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 2: Le Grandi Prove (e un Dettaglio Epico!)</h2>
+            <h2 class="text-4xl font-bold gold-text mb-6 shimmer-text">Capitolo 2: Le Grandi Prove (e un Dettaglio Epico!)</h2>
             <p class="text-xl mb-8 leading-relaxed">
                 Credi che stia esagerando? Le prove sono qui! Ogni pixel dei tuoi stream,
                 ogni tua reazione è scolpita nel mio... disco rigido.
             </p>
             <div class="flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 md:space-x-8">
                 <div class="w-full md:w-1/2 img-container p-2">
-                    <img src="https://cdn.discordapp.com/attachments/962773962482417755/1384990031571058718/Screenshot_2025-06-18_220051.png?ex=68546ffb&is=68531e7b&hm=381a6fd348e530715b2ee6bced1731fa0f3b2cdef7fd654cb4dbe2f1aa042051&">
+                    <img src="https://cdn.discordapp.com/attachments/962773962482417755/1384990031571058718/Screenshot_2025-06-18_220051.png?ex=685e533b&is=685d01bb&hm=06545fe21c02f9714435f1ceab607ce97042a435785cf04a2db208faba9ebc62&"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/FFD700?text=Immagine+1+Placeholder';"
+                         alt="Screenshot del tuo stream quotidiano, fonte di ispirazione." class="w-full h-auto rounded-lg">
                     <p class="mt-4 text-lg gold-text">La mia fonte d'ispirazione quotidiana!</p>
                 </div>
                 <div class="w-full md:w-1/2 img-container p-2">
-                    <img src="https://cdn.discordapp.com/attachments/962773962482417755/1384990032053407914/Screenshot_2025-06-18_220046.png?ex=68546ffb&is=68531e7b&hm=955938aae0f2637970011347907117e6bf80c2d8da877cc020612db6be6e032c&" alt="NoLukee e il Mio Desktop" class="w-full h-auto rounded-lg">
+                    <img src="https://cdn.discordapp.com/attachments/962773962482417755/1384990032053407914/Screenshot_2025-06-18_220046.png?ex=685e533b&is=685d01bb&hm=b3d0d28171b81a7784496678983371d193b95a7f9523ed8ab96af1f68aa087fa&"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/FFD700?text=Immagine+2+Placeholder';"
+                         alt="Il tuo desktop con un'immagine di NoLukee come omaggio." class="w-full h-auto rounded-lg">
                     <p class="mt-4 text-lg gold-text">Anche il mio desktop ti rende omaggio.</p>
                 </div>
             </div>
@@ -101,7 +228,7 @@
 
         <!-- Pagina 3: Il Giuramento D'Oro -->
         <section id="pledge-page" class="page-section text-center">
-            <h2 class="text-4xl font-bold gold-text mb-6">Capitolo 3: Il Giuramento D'Oro (e di Pura Follia!)</h2>
+            <h2 class="text-4xl font-bold gold-text mb-6 shimmer-text">Capitolo 3: Il Giuramento D'Oro (e di Pura Follia!)</h2>
             <p class="text-xl mb-4 leading-relaxed">
                 Prometto solennemente (e ridendo a crepapelle) di continuare a seguirti fino alla fine dei miei giorni,
                 o almeno fino al prossimo aggiornamento di gioco!
@@ -118,18 +245,50 @@
 
     </main>
 
-    <footer class="mt-8 text-center text-gray-500 text-sm">
+    <footer class="mt-8 text-center text-gray-400 text-sm z-10">
         <p>&copy; 2025 il tuo feticista preferito. Tutti i diritti riservati (scherzo!).</p>
     </footer>
 
     <script>
-        // Funzione per mostrare la sezione desiderata e nascondere le altre
+        // Funzione per generare stelle per lo sfondo animato
+        function createStars(count) {
+            const container = document.getElementById('starry-background');
+            for (let i = 0; i < count; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = star.style.height = `${Math.random() * 3 + 1}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${Math.random() * 3 + 3}s`; // Varia la durata dell'animazione
+                container.appendChild(star);
+            }
+        }
+
+        // Funzione per mostrare la sezione desiderata e nascondere le altre con transizione
         function showPage(pageId) {
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => {
-                section.classList.remove('active');
+                section.classList.remove('active'); // Rimuove 'active' da tutte
             });
-            document.getElementById(pageId).classList.add('active');
+
+            // Aggiunge 'active' alla sezione desiderata dopo un breve timeout per permettere la transizione
+            const activeSection = document.getElementById(pageId);
+            if (activeSection) {
+                // Forziamo il reflow per garantire che la transizione venga applicata correttamente
+                void activeSection.offsetWidth;
+                activeSection.classList.add('active');
+            }
+
+            // Aggiorna lo stato attivo del bottone di navigazione
+            const navButtons = document.querySelectorAll('.nav-button');
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            const currentButton = document.getElementById(`nav-${pageId.replace('-page', '')}`);
+            if (currentButton) {
+                currentButton.classList.add('active');
+            }
         }
 
         // Aggiungi listener ai bottoni di navigazione
@@ -137,9 +296,10 @@
         document.getElementById('nav-gallery').addEventListener('click', () => showPage('gallery-page'));
         document.getElementById('nav-pledge').addEventListener('click', () => showPage('pledge-page'));
 
-        // Mostra la prima pagina all'apertura
+        // Mostra la prima pagina all'apertura e crea le stelle
         document.addEventListener('DOMContentLoaded', () => {
             showPage('home-page');
+            createStars(100); // Crea 100 stelle per lo sfondo
         });
     </script>
 </body>
